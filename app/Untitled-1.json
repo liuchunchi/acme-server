@@ -1,0 +1,42 @@
+POST /acme/new-order
+Content-Type: application/json
+
+{
+  "status": "pending",
+  "expires": "2026-06-07T10:21:42.654062Z",
+  "identifiers": [
+    {
+      "type": "dns",
+      "value": "test.example.com"
+    }
+  ],
+  "authorizations": [
+    "http://localhost:9000/acme/authz/OmJwSBNwiF_aEkBgsNx4xYBXteU8nbtdMcPE-yfk1WA"
+  ],
+  "finalize": "http://localhost:9000/acme/order/DSyvRkZ6841I1vFMT1bPMVdpdLSENCCTpW7j8fbPVys/finalize"
+}
+
+POST /acme/authz/OmJwSBNwiF_aEkBgsNx4xYBXteU8nbtdMcPE-yfk1WA
+
+{
+  "identifier": {
+    "type": "dns",
+    "value": "test.example.com"
+  },
+  "status": "pending",
+  "expires": "2026-06-07T10:21:42.654062Z",
+  "challenges": [
+    {
+      "type": "http-01",
+      "status": "pending",
+      "url": "http://localhost:9000/acme/chall/SoiO30_ZXcGqwBfYN92derFh0teKHs6zsQUD7X2Pypo",
+      "token": "RrsS4fLgUp-1yTmd3m7NehkAgHdOlwwrsO7mtCeu4_w"
+    },
+    {
+      "type": "dns-01",
+      "status": "pending",
+      "url": "http://localhost:9000/acme/chall/F3Vm6tusXFZyPfNRZ1JMhvKCN0eT53uZU5XaxhEXC_U",
+      "token": "nSCPkfX3W0YvvAJXmXavfbgyNM5ZeCU3nGIo7MR1WOM"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[Unit]
+Description=ACME Server (RFC 8555)
+After=network.target
+
+[Service]
+Type=simple
+User=acme
+Group=acme
+WorkingDirectory=/opt/acmeserver
+ExecStart=/opt/acmeserver/venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-level info
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+
+Environment=ACME_BASE_URL=http://localhost:8000
+Environment=ACME_AUTO_ACCEPT_CHALLENGES=false
+
+# Logs go to journalctl + logs/acme.log
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
